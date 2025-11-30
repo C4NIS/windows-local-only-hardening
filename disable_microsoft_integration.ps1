@@ -48,5 +48,14 @@ reg add "HKCU\Software\Microsoft\Clipboard" /v EnableClipboardHistory /t REG_DWO
 Write-Host "===> Forçando login local apenas..."
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v NoConnectedUser /t REG_DWORD /d 3 /f
 
+##
+# parar o serviço agora
+Stop-Service -Name TokenBroker -Force
+
+# desativar no boot
+Set-Service -Name TokenBroker -StartupType Disabled
+
+
 Write-Host "===> PRONTO! Windows agora está no modo local puro."
 Write-Host "Reinicie o sistema."
+
